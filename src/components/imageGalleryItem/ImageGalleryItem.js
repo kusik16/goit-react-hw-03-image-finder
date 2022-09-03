@@ -26,6 +26,7 @@ class ImageGalleryItem extends Component {
   };
 
   handleModal = () => {
+    console.log();
     this.setState({ showModal: !this.state.showModal });
   };
 

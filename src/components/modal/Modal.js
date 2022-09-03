@@ -5,11 +5,11 @@ import './modal.css'
 const Modal = ({ largeImageURL, handleModal, onEscapePress }) => {
   return (
     <div
-      class="overlay"
+      className="overlay"
       onKeyPress={e => onEscapePress(e)}
       onClick={() => handleModal()}
     >
-      <div class="modal">
+      <div className="modal">
         <img src={largeImageURL} alt="someimage" />
       </div>
     </div>
