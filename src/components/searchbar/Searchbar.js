@@ -1,21 +1,21 @@
 import PropTypes from 'prop-types';
 
-import './searchbar.css';
+import searchbar from './Searchbar.module.css';
 
 const Searchbar = ({ handleSearch, onSearchImage, searchText }) => {
   return (
-    <header className="searchbar">
+    <header className={searchbar.header}>
       <form
         onSubmit={e => onSearchImage(e, searchText)}
-        className="search-form"
+        className={searchbar.form}
       >
-        <button type="submit" className="search-form-button">
-          <span className="search-form-button-label">Search</span>
+        <button type="submit" className={searchbar.btn}>
+          <span className={searchbar.btnLabel}>Search</span>
         </button>
 
         <input
           onChange={e => handleSearch(e)}
-          className="search-form-input"
+          className={searchbar.input}
           type="text"
           autoComplete="off"
           autoFocus
@@ -31,5 +31,5 @@ export default Searchbar;
 Searchbar.propTypes = {
   handleSearch: PropTypes.func.isRequired,
   onSearchImage: PropTypes.func.isRequired,
-  searchText: PropTypes.string.isRequired,
+  searchText: PropTypes.string,
 };

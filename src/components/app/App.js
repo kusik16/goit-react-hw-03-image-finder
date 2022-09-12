@@ -5,7 +5,7 @@ import ImageGallery from '../imageGallery/ImageGallery';
 import Button from '../button/Button';
 import Loader from '../loader/Loader';
 
-import './app.css';
+import app from './App.module.css';
 
 const _apiKey = '29633570-ed278bc3600c586f3f6eb946e';
 
@@ -81,7 +81,7 @@ class App extends Component {
   render() {
     return (
       <>
-        <div className="app">
+        <div className={app.app}>
           <Searchbar
             searchText={this.searchText}
             handleSearch={this.handleSearch}

@@ -1,15 +1,15 @@
 import PropTypes from 'prop-types';
 
-import './modal.css'
+import modal from './Modal.module.css';
 
 const Modal = ({ largeImageURL, handleModal, onEscapePress }) => {
   return (
     <div
-      className="overlay"
+      className={modal.overlay}
       onKeyPress={e => onEscapePress(e)}
       onClick={() => handleModal()}
     >
-      <div className="modal">
+      <div className={modal.modal}>
         <img src={largeImageURL} alt="someimage" />
       </div>
     </div>
