@@ -29,6 +29,12 @@ class ImageGalleryItem extends Component {
     this.setState({ showModal: !this.state.showModal });
   };
 
+  static propTypes = {
+    id: PropTypes.number.isRequired,
+    webformatURL: PropTypes.string.isRequired,
+    largeImageURL: PropTypes.string.isRequired,
+  };
+
   render() {
     const { webformatURL, largeImageURL } = this.props;
     return (
@@ -56,9 +62,3 @@ class ImageGalleryItem extends Component {
 }
 
 export default ImageGalleryItem;
-
-ImageGalleryItem.propTypes = {
-  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  webformatURL: PropTypes.string.isRequired,
-  largeImageURL: PropTypes.string.isRequired,
-};

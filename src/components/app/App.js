@@ -10,15 +10,12 @@ import app from './App.module.css';
 const _apiKey = '29633570-ed278bc3600c586f3f6eb946e';
 
 class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      images: [],
-      status: 'idle',
-      page: 1,
-      searchText: '',
-    };
-  }
+  state = {
+    images: [],
+    status: 'idle',
+    page: 1,
+    searchText: '',
+  };
 
   handleSearch = e => {
     this.setState({
@@ -88,7 +85,7 @@ class App extends Component {
             onSearchImage={this.onSearchImage}
           />
           <ImageGallery images={this.state.images} />
-          {this.state.status === 'loading' ? <Loader /> : null}
+          {this.state.status === 'loading' && <Loader />}
           {this.state.images.length > 1 && this.state.status !== 'loading' ? (
             <Button onLoadMore={this.onLoadMore} />
           ) : null}
