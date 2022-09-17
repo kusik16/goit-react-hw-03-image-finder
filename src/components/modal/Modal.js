@@ -2,12 +2,12 @@ import PropTypes from 'prop-types';
 
 import modal from './Modal.module.css';
 
-const Modal = ({ largeImageURL, handleModal, onEscapePress }) => {
+const Modal = ({ largeImageURL, closeModal, onEscapePress }) => {
   return (
     <div
       className={modal.overlay}
       onKeyPress={e => onEscapePress(e)}
-      onClick={() => handleModal()}
+      onClick={e => closeModal(e)}
     >
       <div className={modal.modal}>
         <img src={largeImageURL} alt="someimage" />
@@ -19,7 +19,7 @@ const Modal = ({ largeImageURL, handleModal, onEscapePress }) => {
 export default Modal;
 
 Modal.propTypes = {
-  handleModal: PropTypes.func.isRequired,
+  closeModal: PropTypes.func.isRequired,
   onEscapePress: PropTypes.func.isRequired,
   largeImageURL: PropTypes.string.isRequired,
 };

@@ -25,8 +25,14 @@ class ImageGalleryItem extends Component {
     }
   };
 
-  handleModal = () => {
-    this.setState({ showModal: !this.state.showModal });
+  openModal = e => {
+    this.setState({ showModal: true });
+  };
+
+  closeModal = e => {
+    if (e.target.tagName !== 'IMG') {
+      this.setState({ showModal: false });
+    }
   };
 
   static propTypes = {
@@ -39,10 +45,7 @@ class ImageGalleryItem extends Component {
     const { webformatURL, largeImageURL } = this.props;
     return (
       <>
-        <li
-          onClick={() => this.handleModal()}
-          className={imageGalleryItem.item}
-        >
+        <li onClick={e => this.openModal(e)} className={imageGalleryItem.item}>
           <img
             className={imageGalleryItem.itemImage}
             src={webformatURL}
@@ -52,7 +55,7 @@ class ImageGalleryItem extends Component {
         {this.state.showModal && (
           <Modal
             onEscapePress={this.onEscapePress}
-            handleModal={this.handleModal}
+            closeModal={this.closeModal}
             largeImageURL={largeImageURL}
           />
         )}
