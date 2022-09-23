@@ -11,28 +11,8 @@ class ImageGalleryItem extends Component {
       showModal: false,
     };
   }
-
-  componentDidMount() {
-    document.addEventListener('keydown', this.onEscapePress, false);
-  }
-  componentWillUnmount() {
-    document.removeEventListener('keydown', this.onEscapePress, false);
-  }
-
-  onEscapePress = e => {
-    if (e.key === 'Escape') {
-      this.setState({ showModal: false });
-    }
-  };
-
-  openModal = e => {
-    this.setState({ showModal: true });
-  };
-
-  closeModal = e => {
-    if (e.target.tagName !== 'IMG') {
-      this.setState({ showModal: false });
-    }
+  toggleModal = () => {
+    this.setState({ showModal: !this.state.showModal });
   };
 
   static propTypes = {
@@ -45,7 +25,7 @@ class ImageGalleryItem extends Component {
     const { webformatURL, largeImageURL } = this.props;
     return (
       <>
-        <li onClick={e => this.openModal(e)} className={imageGalleryItem.item}>
+        <li onClick={this.toggleModal} className={imageGalleryItem.item}>
           <img
             className={imageGalleryItem.itemImage}
             src={webformatURL}
@@ -53,11 +33,7 @@ class ImageGalleryItem extends Component {
           />
         </li>
         {this.state.showModal && (
-          <Modal
-            onEscapePress={this.onEscapePress}
-            closeModal={this.closeModal}
-            largeImageURL={largeImageURL}
-          />
+          <Modal onClose={this.toggleModal} largeImageURL={largeImageURL} />
         )}
       </>
     );
