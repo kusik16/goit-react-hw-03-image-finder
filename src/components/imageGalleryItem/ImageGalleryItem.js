@@ -3,22 +3,19 @@ import Modal from '../modal/Modal';
 import PropTypes from 'prop-types';
 
 import imageGalleryItem from './ImageGalleryItem.module.css';
-
-class ImageGalleryItem extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      showModal: false,
-    };
-  }
-  toggleModal = () => {
-    this.setState({ showModal: !this.state.showModal });
+export default class ImageGalleryItem extends Component {
+  state = {
+    showModal: false,
   };
 
   static propTypes = {
     id: PropTypes.number.isRequired,
     webformatURL: PropTypes.string.isRequired,
     largeImageURL: PropTypes.string.isRequired,
+  };
+
+  toggleModal = () => {
+    this.setState({ showModal: !this.state.showModal });
   };
 
   render() {
@@ -39,5 +36,3 @@ class ImageGalleryItem extends Component {
     );
   }
 }
-
-export default ImageGalleryItem;

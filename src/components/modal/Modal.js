@@ -7,13 +7,18 @@ import modal from './Modal.module.css';
 
 const modalRoot = document.querySelector('#modal-root');
 
-class Modal extends Component {
+export default class Modal extends Component {
   componentDidMount() {
     document.addEventListener('keydown', this.props.onEscapePress, false);
   }
   componentWillUnmount() {
     document.removeEventListener('keydown', this.props.onEscapePress, false);
   }
+
+  static propTypes = {
+    onClose: PropTypes.func.isRequired,
+    largeImageURL: PropTypes.string.isRequired,
+  };
 
   handleEscape = e => {
     if (e.key === 'Escape') {
@@ -38,10 +43,3 @@ class Modal extends Component {
     );
   }
 }
-
-export default Modal;
-
-Modal.propTypes = {
-  onClose: PropTypes.func.isRequired,
-  largeImageURL: PropTypes.string.isRequired,
-};
