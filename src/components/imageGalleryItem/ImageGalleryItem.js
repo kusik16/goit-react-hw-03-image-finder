@@ -2,11 +2,16 @@ import { Component } from 'react';
 import Modal from '../modal/Modal';
 import PropTypes from 'prop-types';
 
+import { scrollToMax } from 'utils/functions';
 import imageGalleryItem from './ImageGalleryItem.module.css';
 export default class ImageGalleryItem extends Component {
   state = {
     showModal: false,
   };
+
+  componentDidMount() {
+    scrollToMax();
+  }
 
   static propTypes = {
     id: PropTypes.number.isRequired,

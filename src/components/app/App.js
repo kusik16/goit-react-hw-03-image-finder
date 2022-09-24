@@ -18,46 +18,32 @@ class App extends Component {
 
   imageService = new ImageService();
 
-  handleSearch = e => {
-    this.setState({
-      searchText: e.target.value,
-    });
-    if (e.target.value !== this.state.searchText) {
-      this.setState({
-        page: 1,
-      });
+  componentDidUpdate(_, prevState) {
+    if (
+      prevState.page !== this.state.page ||
+      prevState.searchText !== this.state.searchText
+    ) {
+      this.searchImage(this.state.searchText);
     }
-  };
+  }
 
-  scrollToMax = () => {
-    let scrollHeight = Math.max(
-      document.body.scrollHeight,
-      document.documentElement.scrollHeight,
-      document.body.offsetHeight,
-      document.documentElement.offsetHeight,
-      document.body.clientHeight,
-      document.documentElement.clientHeight
-    );
-
-    window.scrollBy({
-      top: scrollHeight,
-      behavior: 'smooth',
-    });
-  };
-
-  onSearchImage = (e, searchText) => {
-    this.setState({ images: [], page: 1, process: 'loading' });
-
+  handleSearchSubmit = (e, searchText) => {
     e.preventDefault();
+    this.setState({ searchText, images: [], page: 1 });
+  };
+
+  searchImage = searchText => {
+    this.setState({
+      process: 'loading',
+    });
     this.imageService
       .getImages(this.state.page, searchText)
-      .then(res =>
+      .then(res => {
         this.setState({
-          images: res,
-          page: this.state.page + 1,
+          images: [...this.state.images, ...res],
           process: 'ok',
-        })
-      )
+        });
+      })
       .catch(() =>
         this.setState({
           process: 'error',
@@ -66,39 +52,15 @@ class App extends Component {
   };
 
   onLoadMore = () => {
-    this.setState({ process: 'loading' });
-
-    this.imageService
-      .getImages(this.state.page, this.state.searchText)
-      .then(res =>
-        this.setState({
-          images: [...this.state.images, ...res],
-          page: this.state.page + 1,
-          process: 'ok',
-        })
-      )
-      .then(() =>
-        setTimeout(() => {
-          this.scrollToMax();
-        }, 100)
-      )
-      .catch(() =>
-        this.setState({
-          process: 'error',
-        })
-      );
+    this.setState(prevState => ({ page: prevState.page + 1 }));
   };
 
   render() {
-    const { process, images, searchText } = this.state;
+    const { process, images } = this.state;
     return (
       <>
         <div className={app.app}>
-          <Searchbar
-            searchText={searchText}
-            handleSearch={this.handleSearch}
-            onSearchImage={this.onSearchImage}
-          />
+          <Searchbar onSearchSubmit={this.handleSearchSubmit} />
           {(process === 'ok' || process === 'loading') && (
             <ImageGallery images={images} />
           )}
